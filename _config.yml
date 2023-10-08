@@ -81,40 +81,40 @@ analytics:
 # Site Author
 author:
   name             : "Cason Konzer"
-  avatar           : "profile.png"
+  avatar           : "casonk_headshot.jpg"
   bio              : "Data Systems Engineer at Bosch and current computer science MS student and research assistant and the University of Michigan - Flint."
   location         : "The Mitten"
   employer         : "Robert Bosch LLC"
   pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : # "http://yourfullgooglescholarurl.com"
-  email            :
+  email            : "casonk@umich.edu"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
-  uri              :
-  bitbucket        :
-  codepen          :
-  dribbble         :
-  flickr           :
-  facebook         :
-  foursquare       :
+  uri              : 
+  bitbucket        : 
+  codepen          : 
+  dribbble         : 
+  flickr           : 
+  facebook         : 
+  foursquare       : 
   github           : "casonk"
-  google_plus      :
-  keybase          :
-  instagram        :
+  google_plus      : 
+  keybase          : 
+  instagram        : 
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
-  lastfm           :
-  linkedin         :
+  lastfm           : 
+  linkedin         : "https://www.linkedin.com/in/cason-k-395761187/"
   orcid            : # "http://orcid.org/yourorcidurl"
-  pinterest        :
-  soundcloud       :
+  pinterest        : 
+  soundcloud       : 
   stackoverflow    : # http://stackoverflow.com/users/123456/username
-  steam            :
-  tumblr           :
+  steam            : 
+  tumblr           : 
   twitter          : # "replacethistwitterhandle"
-  vine             :
-  weibo            :
-  xing             :
-  youtube          :
-  wikipedia        :
+  vine             : 
+  weibo            : 
+  xing             : 
+  youtube          : "https://www.youtube.com/channel/UC_3d_xmuO2_etFZBfuYLLaw"
+  wikipedia        : 
 
 
 # Reading Files
