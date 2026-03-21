@@ -1,0 +1,133 @@
+# Future option: re-enable GitHub metadata later by replacing `github: false`
+# in `_config.yml` and optionally providing `JEKYLL_GITHUB_TOKEN` for local builds.
+
+# Reference-only configuration snippets from the original template.
+# This file is not loaded by default. Copy only the parts you want into `_config.yml`.
+
+comments:
+  provider: # false, "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  disqus:
+    shortname:
+  discourse:
+    server:
+  facebook:
+    appid:
+    num_posts:
+    colorscheme:
+
+staticman:
+  allowedFields: ["name", "email", "url", "message"]
+  branch: "gh-pages"
+  commitMessage: "New comment."
+  filename: comment-{@timestamp}
+  format: "yml"
+  moderation: true
+  path: "_data/comments/{options.slug}"
+  requiredFields: ["name", "email", "message"]
+  transforms:
+    email: "md5"
+  generatedFields:
+    date:
+      type: "date"
+      options:
+        format: "iso8601"
+
+atom_feed:
+  path:
+
+google_site_verification:
+bing_site_verification:
+alexa_site_verification:
+yandex_site_verification:
+
+twitter:
+  username:
+
+facebook:
+  username:
+  app_id:
+  publisher:
+
+og_image:
+
+social:
+  type:
+  name:
+  links: []
+
+analytics:
+  provider: # false, "google", "google-universal", "custom"
+  google:
+    tracking_id:
+
+author_reference_fields:
+  pubmed:
+  googlescholar:
+  researchgate:
+  uri:
+  bitbucket:
+  codepen:
+  dribbble:
+  flickr:
+  facebook:
+  foursquare:
+  google_plus:
+  instagram:
+  impactstory:
+  keybase:
+  lastfm:
+  orcid:
+  pinterest:
+  soundcloud:
+  stackoverflow:
+  steam:
+  tumblr:
+  twitter:
+  vine:
+  weibo:
+  wikipedia:
+  xing:
+  youtube:
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  - scope:
+      path: ""
+      type: pages
+    values:
+      author_profile: true
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      author_profile: true
+      share: true
+      comments: true
+  - scope:
+      path: ""
+      type: publications
+    values:
+      author_profile: true
+      share: true
+      comments: true
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      author_profile: true
+      share: true
+      comment: true
+  - scope:
+      path: ""
+      type: talks
+    values:
+      author_profile: true
+      share: true
