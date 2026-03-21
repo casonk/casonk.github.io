@@ -1,16 +1,18 @@
 ---
 layout: archive
-title: "Talks and presentations"
+title: "Talks & Workshops"
 permalink: /talks/
-author_profile: true
+author_profile: false
 ---
 
-{% if site.talkmap_link == true %}
-
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
-
+{% if site.talkmap_link == true and site.talks.size > 0 %}
+<p style="text-decoration: underline;"><a href="/talkmap.html">See a map of all talk locations.</a></p>
 {% endif %}
 
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+{% if site.talks.size > 0 %}
+  {% for post in site.talks reversed %}
+    {% include archive-single-talk.html %}
+  {% endfor %}
+{% else %}
+No talks or workshop entries are published here yet.
+{% endif %}
