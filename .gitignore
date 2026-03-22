@@ -27,3 +27,5 @@ Thumbs.db
 
 # Private reference data (ignored)
 private_data/
+# Agent memory (ignored)
+CHATHISTORY.md
