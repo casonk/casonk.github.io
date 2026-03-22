@@ -1,5 +1,36 @@
-Contributions are welcome! Please add issues and make pull requests. There are no stupid questions. All ideas are welcome. This is a volunteer project. Be excellent to each other.
+# Contributing
 
-Fork from master and go from there. This repository is intended to remain a generic, ready-to-fork template that demonstrates the features of academicpages.
+Thank you for your interest in contributing!
 
-If you make a pull request and change code, please make sure there is a closed issue tagged with 'code change' that has some comment linking to either the single commit (if the change was just one commit) or a diff comparing before/after the change (see [issue 21](https://github.com/academicpages/academicpages.github.io/issues/21) for example). This is so that those who have forked this repo and modified it for their purposes can more easily patch bugs and new features.
+## Getting Started
+
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b feat/your-feature
+   ```
+3. Make your changes.
+4. Commit using [Conventional Commits](https://www.conventionalcommits.org/):
+   ```
+   type(scope): short description
+   ```
+   Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`, `perf`
+5. Push and open a Pull Request.
+
+## Code Standards
+
+- Follow existing code style and conventions.
+- Run linters/formatters before submitting.
+- Add or update tests for new functionality.
+- Update documentation if your change affects usage.
+
+## Pull Request Guidelines
+
+- Keep PRs focused — one concern per PR.
+- Fill out the PR template.
+- Ensure CI checks pass.
+- Do not commit secrets, credentials, or sensitive data.
+
+## Questions?
+
+Open an issue for bugs, feature requests, or questions.
