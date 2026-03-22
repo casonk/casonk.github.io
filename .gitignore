@@ -24,3 +24,6 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+
+# Private reference data (ignored)
+private_data/
