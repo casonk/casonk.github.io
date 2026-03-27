@@ -34,9 +34,11 @@
 - Prefer source-backed content over template/demo placeholders.
 - When adding new content, preserve existing permalinks and archive page structure.
 
-## Agent memory
+## Agent Memory
 
-A local file, CHATHISTORY.md, is used to store recent chat exchanges and memory for the local assistant. CHATHISTORY.md is intentionally added to .gitignore and must not be committed or published. It stores brief notes from recent user-agent messages to help local development and debugging.
+Use `./CHATHISTORY.md` as the standard local handoff file for this repo.
 
-Location: ./CHATHISTORY.md
-
+- It is local-only and gitignored; do not publish it.
+- Read it after `AGENTS.md` when resuming work.
+- Keep entries brief and focused on recent user context, actions, blockers, and next steps.
+- Redact any sensitive or private data before writing to it.
