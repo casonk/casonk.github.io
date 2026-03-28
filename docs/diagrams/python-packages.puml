@@ -1,0 +1,7 @@
+@startuml packages_casonk.github.io
+set namespaceSeparator none
+package "scripts.extract_education" as scripts.extract_education {
+}
+package "talkmap" as talkmap {
+}
+@enduml
