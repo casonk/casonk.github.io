@@ -1,41 +1,68 @@
 # Contributor Architecture Blueprint
 
-This document is a concise map of how the Jekyll site assembles content, data, and configuration into the published portfolio.
+This document is a concise map of how `casonk.github.io` turns Jekyll source content, structured data, and optional offline generators into the published portfolio site.
 
-## High-Level Layers
+## Current Architecture Flow
 
-1. Content layer (`_pages/`, `_portfolio/`, `_publications/`, `_talks/`)
-   - Markdown files and collection entries define the public content.
-   - Stable permalinks and archive structure matter because the site is already published.
-2. Data and configuration layer (`_config.yml`, `_config.dev.yml`, `_data/`)
-   - `_config.yml` is the production configuration.
-   - `_config.dev.yml` is the local override layer for local-only behavior.
-   - `_data/` holds structured content that templates can reuse across pages.
-3. Theme and layout layer (`_layouts/`, `_includes/`, assets)
-   - Layouts and includes determine how collection content is rendered.
-   - Shared assets and theme choices should stay consistent across pages.
-4. Build and validation layer (Bundler + Jekyll)
-   - `bundle exec jekyll build --config _config.yml,_config.dev.yml` is the primary local build check.
-   - `bundle exec jekyll doctor` is the fast health-check path for configuration problems.
+1. Public content is authored in `_pages/` plus the Jekyll collections `_portfolio/`, `_publications/`, `_talks/`, `_teaching/`, and `_posts/`.
+2. `_config.yml`, `_config.dev.yml`, and `_data/*.yml` define the build behavior, navigation, author metadata, and other structured content consumed by templates.
+3. `_layouts/`, `_includes/`, `_sass/`, and `assets/` render those sources into HTML, CSS, and JS for the published site.
+4. Optional offline helper paths can update source material before the site build:
+   - `markdown_generator/` can regenerate collection markdown from TSV or notebook inputs.
+   - `scripts/extract_education.py` can derive sanitized `_data/education.yml` content from local `private_data/`.
+   - `talkmap.py` can turn talk metadata into `talkmap/` artifacts.
+5. `bundle exec jekyll build --config _config.yml,_config.dev.yml` produces `_site/`, which is the rendered output surface.
+6. `.github/workflows/ci.yml` validates the site build in GitHub Actions with a Ruby/Jekyll build step.
 
-## Key Entry Points
+## Source Layers
 
-- `_pages/about.md`: homepage/about content
-- `_pages/cv.md`: public CV page
-- `_config.yml`: production site configuration
-- `_config.dev.yml`: local development overrides
-- `.github/workflows/ci.yml`: GitHub Actions build validation
+### Content Layer
+
+- `_pages/about.md` is the published homepage.
+- `_pages/cv.md`, `_pages/portfolio.html`, `_pages/publications.md`, `_pages/talks.html`, and `_pages/teaching.html` are the main public index pages.
+- `_portfolio/`, `_publications/`, `_talks/`, `_teaching/`, and `_posts/` hold the collection entries that those pages surface.
+- Stable permalinks matter because the site is already public.
+
+### Configuration And Data Layer
+
+- `_config.yml` is the active production site configuration.
+- `_config.dev.yml` is the local-only override layer for localhost development and relaxed analytics behavior.
+- `_data/navigation.yml`, `_data/authors.yml`, `_data/education.yml`, and related data files feed templates and profile components.
+- `_config.reference.yml`, `_data/navigation_reference.yml`, and `_data/authors_reference.yml` are reference-only examples, not active runtime inputs.
+
+### Presentation Layer
+
+- `_layouts/` defines page and archive layout structure.
+- `_includes/` contains reusable rendering fragments such as archive cards, author profile blocks, masthead, footer, and SEO helpers.
+- `_sass/` and `assets/` own the visual theme and static asset surface.
+- `package.json` is a sidecar asset-maintenance path for JS minification; it is not the main site orchestration path today.
+
+### Offline Helper Layer
+
+- `markdown_generator/publications.py` and the related notebook/TSV files are a manual content-authoring lane for publications and related entries.
+- `scripts/extract_education.py` is a local-only preprocessing helper; it reads `private_data/` and emits sanitized YAML that can be checked into `_data/`.
+- `talkmap.py` and `talkmap/` are an optional mapping lane derived from talk metadata, and that output is currently excluded from the active site build.
+- These helper paths are important to the repository architecture, but they are separate from the Jekyll build itself.
+
+### Build And Validation Layer
+
+- `bundle exec jekyll serve --config _config.yml,_config.dev.yml` is the local preview path.
+- `bundle exec jekyll build --config _config.yml,_config.dev.yml` is the main local verification path.
+- `bundle exec jekyll doctor` is the quick health-check path for configuration issues.
+- `_site/` is the build output and should not be treated as the canonical editing surface.
 
 ## Change Guidance
 
 - Keep the public site minimal and factual.
 - Preserve existing permalinks when editing content structure.
-- Treat local-only source material as private even when it informs published summaries.
+- Keep reference-only config and sample content clearly separate from active runtime inputs.
+- Treat `private_data/` as a local-only source boundary even when it informs sanitized published content.
+- Update this blueprint and the paired architecture diagrams when content-generation helpers, build inputs, or the active page surface change materially.
 
 ## Validation
 
 ```bash
 bundle install
-bundle exec jekyll build --config _config.yml,_config.dev.yml
 bundle exec jekyll doctor
+bundle exec jekyll build --config _config.yml,_config.dev.yml
 ```

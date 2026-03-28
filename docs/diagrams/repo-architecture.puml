@@ -1,0 +1,61 @@
+@startuml
+!pragma layout smetana
+title casonk.github.io Repository Architecture
+skinparam shadowing false
+skinparam defaultFontName Monospace
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+actor "Maintainer" as maintainer
+
+package "Jekyll Content Surface" #F8FAFC {
+  rectangle "Primary Pages\n_pages/about.md\n_pages/cv.md\n_pages/portfolio.html\n_pages/publications.md\n_pages/talks.html" as pages #DBEAFE
+  rectangle "Collections\n_portfolio/\n_publications/\n_talks/\n_teaching/\n_posts/" as collections #DBEAFE
+  rectangle "Static Assets\nimages/\nfiles/" as static_assets #DBEAFE
+}
+
+package "Config And Data" #F8FAFC {
+  rectangle "Active Config\n_config.yml\n_config.dev.yml" as config #E0F2FE
+  rectangle "Structured Data\n_data/navigation.yml\n_data/authors.yml\n_data/education.yml\n_data/ui-text.yml" as data_files #E0F2FE
+  rectangle "Reference-Only Examples\n_config.reference.yml\n_data/navigation_reference.yml\n_data/authors_reference.yml" as references #E2E8F0
+}
+
+package "Presentation Layer" #F8FAFC {
+  rectangle "Layouts And Includes\n_layouts/\n_includes/" as templates #DCFCE7
+  rectangle "Theme And Frontend Assets\n_sass/\nassets/\npackage.json JS minification path" as theme_assets #DCFCE7
+}
+
+package "Offline Helper Lanes" #F8FAFC {
+  rectangle "Publication Generators\nmarkdown_generator/*.py\nTSV / notebook inputs\nmanual source refresh" as publication_gen #FEF3C7
+  rectangle "Education Extractor\nscripts/extract_education.py\nprivate_data/ -> sanitized YAML" as education_gen #FEF3C7
+  rectangle "Talk Map Generator\ntalkmap.py\n_talks/ -> talkmap/\ncurrently excluded from active build" as talkmap_gen #FEF3C7
+}
+
+package "Build And Publish Surface" #F8FAFC {
+  rectangle "Local And CI Build\nbundle exec jekyll build\nbundle exec jekyll serve\nbundle exec jekyll doctor" as build #FCE7F3
+  rectangle "CI Workflow\n.github/workflows/ci.yml\nRuby setup + Jekyll build" as ci #DDD6FE
+  rectangle "Rendered Output\n_site/\npublished static portfolio" as site_output #FBCFE8
+}
+
+maintainer --> pages
+maintainer --> collections
+maintainer --> publication_gen
+maintainer --> education_gen
+maintainer --> talkmap_gen
+
+publication_gen --> collections : refresh generated entries
+education_gen --> data_files : update sanitized data
+talkmap_gen --> static_assets : optional map artifacts
+
+pages --> build
+collections --> build
+static_assets --> build
+config --> build
+data_files --> build
+templates --> build
+theme_assets --> build
+ci --> build
+build --> site_output
+references --> config : keep examples outside runtime path
+
+@enduml
