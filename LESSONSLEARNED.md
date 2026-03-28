@@ -12,4 +12,5 @@ Unlike `CHATHISTORY.md`, this file should keep only reusable lessons that should
 
 ## Lessons
 
-- No durable lessons recorded yet.
+- Jekyll portfolio sites should be diagrammed around the content collections, config/data overlays, theme/layout rendering, optional offline generators, and the rendered `_site/` output rather than around whichever helper folder happened to be detected first.
+- Keep local-only source boundaries such as `private_data/`, reference configs, and optional generators like `talkmap.py` explicit in the architecture so the published site flow is not confused with offline authoring helpers.
