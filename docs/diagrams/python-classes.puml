@@ -1,3 +1,8 @@
 @startuml classes_casonk.github.io
 set namespaceSeparator none
+note as archilityPythonSurfaceNote
+Minimal class surface detected.
+Scanned 2 Python modules.
+See python-import-deps-scripts-extract_education.svg, python-import-deps-talkmap.svg for module-level imports.
+end note
 @enduml

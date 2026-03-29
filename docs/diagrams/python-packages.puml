@@ -1,7 +1,7 @@
 @startuml packages_casonk.github.io
 set namespaceSeparator none
-package "scripts.extract_education" as scripts.extract_education {
-}
-package "talkmap" as talkmap {
-}
+top to bottom direction
+skinparam componentStyle rectangle
+rectangle "scripts.extract_education\n1 python file" as scripts.extract_education
+rectangle "talkmap\n1 python file" as talkmap
 @enduml
