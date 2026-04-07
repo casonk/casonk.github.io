@@ -34,6 +34,16 @@
 - Prefer source-backed content over template/demo placeholders.
 - When adding new content, preserve existing permalinks and archive page structure.
 
+## Local CI Verification
+
+Run before every push:
+
+```bash
+pre-commit run --all-files
+```
+
+Do not push changes that have not passed all checks locally.
+
 ## Portfolio Standards Reference
 
 For portfolio-wide repository standards and baseline conventions, consult the control-plane repo at `./util-repos/traction-control` from the portfolio root.
