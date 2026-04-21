@@ -2,6 +2,8 @@
 main:
   - title: "Projects"
     url: /portfolio/
+  - title: "Blog"
+    url: /year-archive/
   - title: "Software"
     url: /publications/
   - title: "Talks"

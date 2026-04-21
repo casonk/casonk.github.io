@@ -5,7 +5,7 @@ locale: en-US
 title: "Cason Konzer"
 title_separator: "-"
 name: &name "Cason Konzer"
-description: &description "Data Systems Engineer at Bosch and computer science M.S. student and research assistant at the University of Michigan-Flint."
+description: &description "Data Systems Engineer at Bosch with graduate work in Computer Science & Information Systems at the University of Michigan-Flint."
 url: "https://casonk.github.io"
 baseurl: ""
 repository: "casonk/casonk.github.io"
@@ -24,7 +24,7 @@ social:
 author:
   name: "Cason Konzer"
   avatar: "casonk_headshot.jpg"
-  bio: "Data Systems Engineer at Bosch and computer science M.S. student and research assistant at the University of Michigan-Flint."
+  bio: "Data Systems Engineer at Bosch with public work spanning data systems, developer tooling, and applied software."
   location: "Michigan, USA"
   employer: "Robert Bosch LLC"
   email: "casonk@umich.edu"
