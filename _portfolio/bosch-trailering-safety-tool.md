@@ -3,6 +3,7 @@ title: "Bosch Trailering Safety Tool"
 excerpt: "Bosch-sponsored capstone work on a trailering safety tool using Python, PyTorch, and Docker."
 collection: portfolio
 permalink: /portfolio/bosch-trailering-safety-tool/
+date: 2024-01-01
 ---
 This project was part of a Bosch-sponsored capstone team.
 

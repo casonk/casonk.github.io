@@ -11,7 +11,7 @@ redirect_from:
 
 ## Profile
 
-Data Systems Engineer at Robert Bosch LLC with graduate work focused on simulation, analytics, social computing, and software systems.
+Data Systems Engineer at Robert Bosch LLC with graduate work and public repositories spanning simulation, analytics, developer tooling, and infrastructure automation.
 
 ## Experience
 
@@ -22,7 +22,7 @@ Data Systems Engineer at Robert Bosch LLC with graduate work focused on simulati
 
 - Graduate study in Computer Science & Information Systems, University of Michigan-Flint
 
-## Selected Software
+## Selected Software & Research
 
 <ul>
 {% for post in site.publications reversed %}
@@ -32,8 +32,9 @@ Data Systems Engineer at Robert Bosch LLC with graduate work focused on simulati
 
 ## Selected Projects
 
+{% assign sorted_portfolio = site.portfolio | sort: "date" | reverse %}
 <ul>
-{% for post in site.portfolio %}
+{% for post in sorted_portfolio %}
   <li><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>{% if post.excerpt %} — {{ post.excerpt | markdownify | strip_html }}{% endif %}</li>
 {% endfor %}
 </ul>

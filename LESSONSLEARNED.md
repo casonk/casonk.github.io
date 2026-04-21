@@ -18,3 +18,4 @@ Unlike `CHATHISTORY.md`, this file should keep only reusable lessons that should
 
 - Jekyll portfolio sites should be diagrammed around the content collections, config/data overlays, theme/layout rendering, optional offline generators, and the rendered `_site/` output rather than around whichever helper folder happened to be detected first.
 - Keep local-only source boundaries such as `private_data/`, reference configs, and optional generators like `talkmap.py` explicit in the architecture so the published site flow is not confused with offline authoring helpers.
+- In this repo, `pre-commit run --all-files` currently normalizes whitespace and EOF markers across many untouched legacy scaffold files; use file-scoped hooks for targeted site edits during iteration, but expect a broader formatting sweep before any push that relies on all-files validation.
