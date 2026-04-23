@@ -11,6 +11,7 @@ This document is a concise map of how `casonk.github.io` turns Jekyll source con
    - `markdown_generator/` can regenerate collection markdown from TSV or notebook inputs.
    - `scripts/extract_education.py` can derive sanitized `_data/education.yml` content from local `private_data/`.
    - `talkmap.py` can turn talk metadata into `talkmap/` artifacts.
+   - `scripts/weekly_blog_agentic.sh` can author and publish a new blog post through Codex from a temporary clean worktree, with the schedule rendered via `config/clockwork/weekly-blog-agentic.toml.template`.
 5. `bundle exec jekyll build --config _config.yml,_config.dev.yml` produces `_site/`, which is the rendered output surface.
 6. `.github/workflows/ci.yml` validates the site build in GitHub Actions with a Ruby/Jekyll build step.
 
@@ -42,6 +43,7 @@ This document is a concise map of how `casonk.github.io` turns Jekyll source con
 - `markdown_generator/publications.py` and the related notebook/TSV files are a manual content-authoring lane for publications and related entries.
 - `scripts/extract_education.py` is a local-only preprocessing helper; it reads `private_data/` and emits sanitized YAML that can be checked into `_data/`.
 - `talkmap.py` and `talkmap/` are an optional mapping lane derived from talk metadata, and that output is currently excluded from the active site build.
+- `scripts/weekly_blog_agentic.sh` plus `config/clockwork/weekly-blog-agentic.toml.template` form an optional scheduled authoring lane that uses Codex to draft a post from a clean temporary worktree instead of the live checkout.
 - These helper paths are important to the repository architecture, but they are separate from the Jekyll build itself.
 
 ### Build And Validation Layer

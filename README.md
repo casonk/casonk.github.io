@@ -48,3 +48,37 @@ bundle exec jekyll doctor
 ```
 
 This requires Bundler plus the system Ruby development headers (`ruby-dev` or `ruby-devel`).
+
+## Scheduled Weekly Blog Automation
+
+This repo now includes an optional weekly blog-authoring workflow integrated
+through the shared `clockwork` scheduler.
+
+- `scripts/weekly_blog_agentic.sh` creates a weekly Codex-authored post from a
+  temporary clean git worktree, validates it, commits it, and pushes it to the
+  tracked remote branch.
+- `config/clockwork/weekly-blog-agentic.toml.template` defines the
+  `clockwork` job and schedules it for Sunday at 12:00 in `America/New_York`.
+- `scripts/install_weekly_blog_agentic_systemd.sh` renders and enables the
+  user-level timer through `clockwork`.
+
+Install it locally:
+
+```bash
+bash scripts/install_weekly_blog_agentic_systemd.sh
+```
+
+Optional local overrides can live in:
+
+```bash
+~/.config/casonk.github.io/weekly-blog-agentic.env
+```
+
+Useful variables include:
+
+- `WEEKLY_BLOG_AGENTIC_MODEL` to pin a Codex model
+- `WEEKLY_BLOG_AGENTIC_BRANCH` to target a specific branch
+- `WEEKLY_BLOG_AGENTIC_PUSH=0` to keep the generated commit local in the
+  temporary worktree instead of pushing automatically
+- `WEEKLY_BLOG_AGENTIC_KEEP_WORKTREE=1` to preserve the temporary worktree for
+  inspection after a run
