@@ -1,0 +1,28 @@
+[[jobs]]
+name = "weekly-blog-agentic"
+description = "Write and publish a weekly Codex-authored blog post for casonk.github.io"
+scope = "user"
+service_type = "oneshot"
+working_directory = "__REPO_ROOT__"
+exec_start = "/usr/bin/env bash __REPO_ROOT__/scripts/weekly_blog_agentic.sh"
+after = ["network-online.target"]
+wants = ["network-online.target"]
+environment_files = ["-%h/.config/casonk.github.io/weekly-blog-agentic.env"]
+standard_output = "journal"
+standard_error = "journal"
+timer_description = "Write and publish the weekly casonk.github.io blog post"
+
+[jobs.timer]
+kind = "calendar"
+on_calendar = "Sun *-*-* 12:00:00 America/New_York"
+persistent = true
+accuracy_sec = "1m"
+
+[jobs.cron]
+expression = "0 12 * * 0"
+timezone = "America/New_York"
+command = "mkdir -p \"$HOME/.local/share/weekly-blog-agentic\" && cd __REPO_ROOT__ && /usr/bin/env bash scripts/weekly_blog_agentic.sh >> \"$HOME/.local/share/weekly-blog-agentic/cron.log\" 2>&1"
+comments = [
+  "Weekly Sunday noon ET fallback for the casonk.github.io Codex-authored blog workflow.",
+  "Update the repo path placeholder before installing via cron instead of clockwork/systemd.",
+]
