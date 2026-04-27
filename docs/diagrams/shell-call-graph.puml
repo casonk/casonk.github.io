@@ -6,19 +6,56 @@ skinparam defaultFontName Monospace
 skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle "_site/scripts/run_tachometer_profile.sh\n0 local shell edges\n3 external tools" as shell_site_scripts_run_tachometer_profile_sh #DBEAFE
+rectangle "scripts/install_weekly_blog_agentic_systemd.sh\n0 local shell edges\n2 external tools" as shell_scripts_install_weekly_blog_agentic_systemd_sh #DBEAFE
 rectangle "scripts/run_tachometer_profile.sh\n0 local shell edges\n3 external tools" as shell_scripts_run_tachometer_profile_sh #DBEAFE
+rectangle "scripts/weekly_blog_agentic.sh\n0 local shell edges\n16 external tools" as shell_scripts_weekly_blog_agentic_sh #DBEAFE
+cloud "(cd" as tool_cd #FEF3C7
+cloud "attempt" as tool_attempt #FEF3C7
+cloud "bundle" as tool_bundle #FEF3C7
+cloud "cat" as tool_cat #FEF3C7
+cloud "cmd+=(--model" as tool_cmd_model #FEF3C7
+cloud "cp" as tool_cp #FEF3C7
+cloud "find" as tool_find #FEF3C7
+cloud "flock" as tool_flock #FEF3C7
+cloud "git" as tool_git #FEF3C7
+cloud "ln" as tool_ln #FEF3C7
+cloud "mkdir" as tool_mkdir #FEF3C7
+cloud "null" as tool_null #FEF3C7
 cloud "run" as tool_run #FEF3C7
+cloud "sed" as tool_sed #FEF3C7
+cloud "sort" as tool_sort #FEF3C7
 cloud "summarize" as tool_summarize #FEF3C7
+cloud "systemctl" as tool_systemctl #FEF3C7
 cloud "tachometer" as tool_tachometer #FEF3C7
+cloud "tee" as tool_tee #FEF3C7
+cloud "tr" as tool_tr #FEF3C7
+shell_scripts_install_weekly_blog_agentic_systemd_sh --> tool_cat
+shell_scripts_install_weekly_blog_agentic_systemd_sh --> tool_systemctl
 shell_scripts_run_tachometer_profile_sh --> tool_run
 shell_scripts_run_tachometer_profile_sh --> tool_summarize
 shell_scripts_run_tachometer_profile_sh --> tool_tachometer
+shell_scripts_weekly_blog_agentic_sh --> tool_cd
+shell_scripts_weekly_blog_agentic_sh --> tool_attempt
+shell_scripts_weekly_blog_agentic_sh --> tool_bundle
+shell_scripts_weekly_blog_agentic_sh --> tool_cat
+shell_scripts_weekly_blog_agentic_sh --> tool_cmd_model
+shell_scripts_weekly_blog_agentic_sh --> tool_cp
+shell_scripts_weekly_blog_agentic_sh --> tool_find
+shell_scripts_weekly_blog_agentic_sh --> tool_flock
+shell_scripts_weekly_blog_agentic_sh --> tool_git
+shell_scripts_weekly_blog_agentic_sh --> tool_ln
+shell_scripts_weekly_blog_agentic_sh --> tool_mkdir
+shell_scripts_weekly_blog_agentic_sh --> tool_null
+shell_scripts_weekly_blog_agentic_sh --> tool_sed
+shell_scripts_weekly_blog_agentic_sh --> tool_sort
+shell_scripts_weekly_blog_agentic_sh --> tool_tee
+shell_scripts_weekly_blog_agentic_sh --> tool_tr
 shell_site_scripts_run_tachometer_profile_sh --> tool_run
 shell_site_scripts_run_tachometer_profile_sh --> tool_summarize
 shell_site_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as shellGraphSummary
-Scanned 2 shell scripts.
+Scanned 4 shell scripts.
 Detected 0 local shell edges.
-Detected 3 external tools.
+Detected 20 external tools.
 end note
 @enduml
