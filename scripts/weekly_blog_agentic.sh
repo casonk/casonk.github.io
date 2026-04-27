@@ -219,10 +219,10 @@ RECENT_POSTS="$(
   cat "${PROMPT_FILE}"
   printf '\n'
   printf 'Runtime context:\n'
-  printf '- Today is %s.\n' "${TODAY}"
-  printf '- Work only inside this repository checkout.\n'
-  printf '- Create a new post dated %s.\n' "${TODAY}"
-  printf '- Do not commit or push; the wrapper script handles git after validation.\n'
+  printf '%s\n' "- Today is ${TODAY}."
+  printf '%s\n' '- Work only inside this repository checkout.'
+  printf '%s\n' "- Create a new post dated ${TODAY}."
+  printf '%s\n' '- Do not commit or push; the wrapper script handles git after validation.'
   printf '\nRecent commits:\n%s\n' "${RECENT_COMMITS:-<none>}"
   printf '\nRecent post files and titles:\n%s\n' "${RECENT_POSTS:-<none>}"
 } > "${PROMPT_RUNTIME_FILE}"
