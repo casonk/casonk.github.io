@@ -7,24 +7,60 @@ skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle ".github/workflows/ci.yml\n3 detected tools" as source_github_workflows_ci_yml #E0F2FE
 rectangle "_site/scripts/run_tachometer_profile.sh\n3 detected tools" as source_site_scripts_run_tachometer_profile_sh #E0F2FE
+rectangle "scripts/install_weekly_blog_agentic_systemd.sh\n2 detected tools" as source_scripts_install_weekly_blog_agentic_systemd_sh #E0F2FE
 rectangle "scripts/run_tachometer_profile.sh\n3 detected tools" as source_scripts_run_tachometer_profile_sh #E0F2FE
+rectangle "scripts/weekly_blog_agentic.sh\n16 detected tools" as source_scripts_weekly_blog_agentic_sh #E0F2FE
+cloud "(cd" as tool_cd #FEF3C7
 cloud "actions/checkout" as tool_actions_checkout #FEF3C7
+cloud "attempt" as tool_attempt #FEF3C7
 cloud "bundle" as tool_bundle #FEF3C7
+cloud "cat" as tool_cat #FEF3C7
+cloud "cmd+=(--model" as tool_cmd_model #FEF3C7
+cloud "cp" as tool_cp #FEF3C7
+cloud "find" as tool_find #FEF3C7
+cloud "flock" as tool_flock #FEF3C7
+cloud "git" as tool_git #FEF3C7
+cloud "ln" as tool_ln #FEF3C7
+cloud "mkdir" as tool_mkdir #FEF3C7
+cloud "null" as tool_null #FEF3C7
 cloud "ruby/setup-ruby" as tool_ruby_setup_ruby #FEF3C7
 cloud "run" as tool_run #FEF3C7
+cloud "sed" as tool_sed #FEF3C7
+cloud "sort" as tool_sort #FEF3C7
 cloud "summarize" as tool_summarize #FEF3C7
+cloud "systemctl" as tool_systemctl #FEF3C7
 cloud "tachometer" as tool_tachometer #FEF3C7
+cloud "tee" as tool_tee #FEF3C7
+cloud "tr" as tool_tr #FEF3C7
 source_github_workflows_ci_yml --> tool_actions_checkout
 source_github_workflows_ci_yml --> tool_bundle
 source_github_workflows_ci_yml --> tool_ruby_setup_ruby
 source_site_scripts_run_tachometer_profile_sh --> tool_run
 source_site_scripts_run_tachometer_profile_sh --> tool_summarize
 source_site_scripts_run_tachometer_profile_sh --> tool_tachometer
+source_scripts_install_weekly_blog_agentic_systemd_sh --> tool_cat
+source_scripts_install_weekly_blog_agentic_systemd_sh --> tool_systemctl
 source_scripts_run_tachometer_profile_sh --> tool_run
 source_scripts_run_tachometer_profile_sh --> tool_summarize
 source_scripts_run_tachometer_profile_sh --> tool_tachometer
+source_scripts_weekly_blog_agentic_sh --> tool_cd
+source_scripts_weekly_blog_agentic_sh --> tool_attempt
+source_scripts_weekly_blog_agentic_sh --> tool_bundle
+source_scripts_weekly_blog_agentic_sh --> tool_cat
+source_scripts_weekly_blog_agentic_sh --> tool_cmd_model
+source_scripts_weekly_blog_agentic_sh --> tool_cp
+source_scripts_weekly_blog_agentic_sh --> tool_find
+source_scripts_weekly_blog_agentic_sh --> tool_flock
+source_scripts_weekly_blog_agentic_sh --> tool_git
+source_scripts_weekly_blog_agentic_sh --> tool_ln
+source_scripts_weekly_blog_agentic_sh --> tool_mkdir
+source_scripts_weekly_blog_agentic_sh --> tool_null
+source_scripts_weekly_blog_agentic_sh --> tool_sed
+source_scripts_weekly_blog_agentic_sh --> tool_sort
+source_scripts_weekly_blog_agentic_sh --> tool_tee
+source_scripts_weekly_blog_agentic_sh --> tool_tr
 note as toolingGraphSummary
-Scanned 3 tooling entrypoints.
-Detected 6 third-party tools.
+Scanned 5 tooling entrypoints.
+Detected 22 third-party tools.
 end note
 @enduml
