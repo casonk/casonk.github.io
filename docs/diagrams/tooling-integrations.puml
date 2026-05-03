@@ -6,6 +6,7 @@ skinparam defaultFontName Monospace
 skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle ".github/workflows/ci.yml\n3 detected tools" as source_github_workflows_ci_yml #E0F2FE
+rectangle ".github/workflows/secret-scan.yml\n2 detected tools" as source_github_workflows_secret_scan_yml #E0F2FE
 rectangle "_site/scripts/run_tachometer_profile.sh\n3 detected tools" as source_site_scripts_run_tachometer_profile_sh #E0F2FE
 rectangle "scripts/install_weekly_blog_agentic_systemd.sh\n2 detected tools" as source_scripts_install_weekly_blog_agentic_systemd_sh #E0F2FE
 rectangle "scripts/run_tachometer_profile.sh\n3 detected tools" as source_scripts_run_tachometer_profile_sh #E0F2FE
@@ -20,6 +21,7 @@ cloud "cp" as tool_cp #FEF3C7
 cloud "find" as tool_find #FEF3C7
 cloud "flock" as tool_flock #FEF3C7
 cloud "git" as tool_git #FEF3C7
+cloud "gitleaks/gitleaks-action" as tool_gitleaks_gitleaks_action #FEF3C7
 cloud "ln" as tool_ln #FEF3C7
 cloud "mkdir" as tool_mkdir #FEF3C7
 cloud "null" as tool_null #FEF3C7
@@ -35,6 +37,8 @@ cloud "tr" as tool_tr #FEF3C7
 source_github_workflows_ci_yml --> tool_actions_checkout
 source_github_workflows_ci_yml --> tool_bundle
 source_github_workflows_ci_yml --> tool_ruby_setup_ruby
+source_github_workflows_secret_scan_yml --> tool_actions_checkout
+source_github_workflows_secret_scan_yml --> tool_gitleaks_gitleaks_action
 source_site_scripts_run_tachometer_profile_sh --> tool_run
 source_site_scripts_run_tachometer_profile_sh --> tool_summarize
 source_site_scripts_run_tachometer_profile_sh --> tool_tachometer
@@ -60,7 +64,7 @@ source_scripts_weekly_blog_agentic_sh --> tool_sort
 source_scripts_weekly_blog_agentic_sh --> tool_tee
 source_scripts_weekly_blog_agentic_sh --> tool_tr
 note as toolingGraphSummary
-Scanned 5 tooling entrypoints.
-Detected 22 third-party tools.
+Scanned 6 tooling entrypoints.
+Detected 23 third-party tools.
 end note
 @enduml
