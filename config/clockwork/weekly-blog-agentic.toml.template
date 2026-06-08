@@ -12,6 +12,9 @@ standard_output = "journal"
 standard_error = "journal"
 timer_description = "Write and publish the weekly casonk.github.io blog post"
 
+[jobs.environment]
+PATH = "%h/.local/npm-global/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
+
 [jobs.timer]
 kind = "calendar"
 on_calendar = "Sun *-*-* 12:00:00 America/New_York"
