@@ -5,12 +5,4 @@ on: [push, pull_request]
 jobs:
   build:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-      - name: Build site
-        run: bundle exec jekyll build
+    uses: casonk/.github/.github/workflows/docs-ci.yml@main
