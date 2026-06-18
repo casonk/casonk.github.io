@@ -13,7 +13,7 @@ standard_error = "journal"
 timer_description = "Write and publish the weekly casonk.github.io blog post"
 
 [jobs.environment]
-PATH = "%h/.local/npm-global/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
+PATH = "%h/bin:%h/.local/npm-global/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
 
 [jobs.timer]
 kind = "calendar"
