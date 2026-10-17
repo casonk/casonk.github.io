@@ -10,6 +10,15 @@ Mark items `[x]` when complete and move them to Done.
 
 ## Pending
 
+- [ ] [manual:2026-10-16] **Refresh the site so it is professional and current** —
+  the site is out of date, so the CV and resume header no longer link to it
+  (the link is hidden locally until this is done). Bring the about page, CV
+  page (`_pages/cv.md`), and talks, publications, and portfolio entries up to
+  date with the current CV: recent roles, current skills, and the EcoCAR
+  talk date (the CV says Winter 2023, the site says April 2024). Clear out
+  leftover theme sample pages and posts, then review the layout and styling.
+  When done, restore the website link in the CV header.
+
 - [ ] [manual:2026-10-15] **Ask GitHub Support to purge pre-rewrite commits** — this
   repository's published history was rewritten (most recently on 2026-10-15,
   to remove per-commit AI attribution trailers). GitHub keeps serving the old
