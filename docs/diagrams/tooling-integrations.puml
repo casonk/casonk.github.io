@@ -1,5 +1,5 @@
 @startuml
-title casonk.github.io Tooling Integrations
+title checkout Tooling Integrations
 left to right direction
 skinparam shadowing false
 skinparam defaultFontName Monospace
@@ -7,9 +7,8 @@ skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle ".github/workflows/ci.yml\n1 detected tool" as source_github_workflows_ci_yml #E0F2FE
 rectangle ".github/workflows/secret-scan.yml\n2 detected tools" as source_github_workflows_secret_scan_yml #E0F2FE
-rectangle "_site/scripts/run_tachometer_profile.sh\n3 detected tools" as source_site_scripts_run_tachometer_profile_sh #E0F2FE
-rectangle "scripts/install_weekly_blog_agentic_systemd.sh\n2 detected tools" as source_scripts_install_weekly_blog_agentic_systemd_sh #E0F2FE
-rectangle "scripts/run_tachometer_profile.sh\n3 detected tools" as source_scripts_run_tachometer_profile_sh #E0F2FE
+rectangle "scripts/install_weekly_blog_agentic_systemd.sh\n3 detected tools" as source_scripts_install_weekly_blog_agentic_systemd_sh #E0F2FE
+rectangle "scripts/run_tachometer_profile.sh\n1 detected tool" as source_scripts_run_tachometer_profile_sh #E0F2FE
 rectangle "scripts/weekly_blog_agentic.sh\n13 detected tools" as source_scripts_weekly_blog_agentic_sh #E0F2FE
 cloud "actions/checkout" as tool_actions_checkout #FEF3C7
 cloud "attempt" as tool_attempt #FEF3C7
@@ -23,10 +22,8 @@ cloud "git" as tool_git #FEF3C7
 cloud "gitleaks/gitleaks-action" as tool_gitleaks_gitleaks_action #FEF3C7
 cloud "ln" as tool_ln #FEF3C7
 cloud "mkdir" as tool_mkdir #FEF3C7
-cloud "run" as tool_run #FEF3C7
 cloud "sed" as tool_sed #FEF3C7
 cloud "sort" as tool_sort #FEF3C7
-cloud "summarize" as tool_summarize #FEF3C7
 cloud "systemctl" as tool_systemctl #FEF3C7
 cloud "tachometer" as tool_tachometer #FEF3C7
 cloud "tee" as tool_tee #FEF3C7
@@ -34,13 +31,9 @@ cloud "tr" as tool_tr #FEF3C7
 source_github_workflows_ci_yml --> tool_casonk_github_github_workflows_docs_ci_yml
 source_github_workflows_secret_scan_yml --> tool_actions_checkout
 source_github_workflows_secret_scan_yml --> tool_gitleaks_gitleaks_action
-source_site_scripts_run_tachometer_profile_sh --> tool_run
-source_site_scripts_run_tachometer_profile_sh --> tool_summarize
-source_site_scripts_run_tachometer_profile_sh --> tool_tachometer
 source_scripts_install_weekly_blog_agentic_systemd_sh --> tool_cat
+source_scripts_install_weekly_blog_agentic_systemd_sh --> tool_sed
 source_scripts_install_weekly_blog_agentic_systemd_sh --> tool_systemctl
-source_scripts_run_tachometer_profile_sh --> tool_run
-source_scripts_run_tachometer_profile_sh --> tool_summarize
 source_scripts_run_tachometer_profile_sh --> tool_tachometer
 source_scripts_weekly_blog_agentic_sh --> tool_attempt
 source_scripts_weekly_blog_agentic_sh --> tool_bundle
@@ -56,7 +49,7 @@ source_scripts_weekly_blog_agentic_sh --> tool_sort
 source_scripts_weekly_blog_agentic_sh --> tool_tee
 source_scripts_weekly_blog_agentic_sh --> tool_tr
 note as toolingGraphSummary
-Scanned 6 tooling entrypoints.
-Detected 20 third-party tools.
+Scanned 5 tooling entrypoints.
+Detected 18 third-party tools.
 end note
 @enduml

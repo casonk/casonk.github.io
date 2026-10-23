@@ -1,4 +1,4 @@
-@startuml classes_casonk.github.io
+@startuml classes_checkout
 set namespaceSeparator none
 note as archilityPythonSurfaceNote
 Minimal class surface detected.
