@@ -59,8 +59,10 @@ This repo now includes an optional weekly blog-authoring workflow integrated
 through the shared `clockwork` scheduler.
 
 - `scripts/weekly_blog_agentic.sh` creates a weekly Codex-authored post from a
-  temporary clean git worktree, validates it, commits it, and pushes it to the
-  tracked remote branch.
+  temporary clean git worktree, validates it, commits it, and pushes it to a
+  `blog/weekly-<date>` branch. The default branch requires a pull request, so merge that
+  branch to publish; pass `--direct` (or `WEEKLY_BLOG_AGENTIC_DIRECT=1`) only where
+  direct pushes are allowed.
 - `config/clockwork/weekly-blog-agentic.toml.template` defines the
   `clockwork` job and schedules it for Sunday at 12:00 in `America/New_York`.
 - `scripts/install_weekly_blog_agentic_systemd.sh` renders and enables the
