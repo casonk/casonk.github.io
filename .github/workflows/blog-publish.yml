@@ -1,13 +1,15 @@
 name: Weekly blog publish
 
 # The weekly agent pushes blog/weekly-<date> branches (its deploy key cannot push to main).
-# This workflow opens a pull request for each one and merges it after a review delay, but only
-# when the pull request changes nothing except new or edited posts. Close the pull request
-# during the delay to stop a post. It never checks out or runs pull request content.
+# Once a day this workflow opens a pull request for each such branch and merges any pull request
+# that has waited DELAY_DAYS, but only when it changes nothing except new or edited posts. Close
+# the pull request during the delay to stop a post.
+#
+# It runs only on a schedule, from the default branch, and never checks out or runs pull request
+# content. A `push` trigger is deliberately not used: it would run the workflow file as it exists
+# on the pushed branch, so anyone able to push a branch could rewrite this job and its token.
 
 on:
-  push:
-    branches: ["blog/weekly-*"]
   schedule:
     - cron: "17 14 * * *"
   workflow_dispatch:
@@ -23,25 +25,21 @@ env:
   BASE: ${{ github.event.repository.default_branch }}
 
 jobs:
-  open-pull-request:
-    if: github.event_name == 'push'
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Open a pull request for the pushed branch
-        env:
-          HEAD_REF: ${{ github.ref_name }}
+      - name: Open a pull request for each blog branch that lacks one
         run: |
-          existing="$(gh pr list --repo "$REPO" --head "$HEAD_REF" --state open --json number --jq 'length')"
-          if [ "$existing" = "0" ]; then
-            gh pr create --repo "$REPO" --base "$BASE" --head "$HEAD_REF" \
-              --title "Weekly blog post (${HEAD_REF#blog/weekly-})" \
-              --body "Opened for the weekly agent's branch. It merges automatically after ${DELAY_DAYS} days if it changes only posts; close it to stop the post."
-          fi
+          gh api --paginate "repos/$REPO/branches" --jq '.[].name | select(startswith("blog/weekly-"))' |
+          while read -r branch; do
+            open="$(gh pr list --repo "$REPO" --head "$branch" --state open --json number --jq 'length')"
+            if [ "$open" = "0" ]; then
+              gh pr create --repo "$REPO" --base "$BASE" --head "$branch" \
+                --title "Weekly blog post (${branch#blog/weekly-})" \
+                --body "Opened for the weekly agent's branch. It merges automatically after ${DELAY_DAYS} days if it changes only posts; close it to stop the post."
+            fi
+          done
 
-  merge-after-delay:
-    if: github.event_name != 'push'
-    runs-on: ubuntu-latest
-    steps:
       - name: Merge posts that have waited long enough
         run: |
           cutoff="$(date -u -d "-${DELAY_DAYS} days" +%s)"
