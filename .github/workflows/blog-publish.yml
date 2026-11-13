@@ -1,0 +1,55 @@
+name: Weekly blog publish
+
+# The weekly agent pushes blog/weekly-<date> branches (its deploy key cannot push to main).
+# Once a day this workflow opens a pull request for each such branch and merges any pull request
+# that has waited DELAY_DAYS, but only when it changes nothing except new or edited posts. Close
+# the pull request during the delay to stop a post.
+#
+# It runs only on a schedule, from the default branch, and never checks out or runs pull request
+# content. A `push` trigger is deliberately not used: it would run the workflow file as it exists
+# on the pushed branch, so anyone able to push a branch could rewrite this job and its token.
+
+on:
+  schedule:
+    - cron: "17 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  DELAY_DAYS: "3"
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  BASE: ${{ github.event.repository.default_branch }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open a pull request for each blog branch that lacks one
+        run: |
+          gh api --paginate "repos/$REPO/branches" --jq '.[].name | select(startswith("blog/weekly-"))' |
+          while read -r branch; do
+            open="$(gh pr list --repo "$REPO" --head "$branch" --state open --json number --jq 'length')"
+            if [ "$open" = "0" ]; then
+              gh pr create --repo "$REPO" --base "$BASE" --head "$branch" \
+                --title "Weekly blog post (${branch#blog/weekly-})" \
+                --body "Opened for the weekly agent's branch. It merges automatically after ${DELAY_DAYS} days if it changes only posts; close it to stop the post."
+            fi
+          done
+
+      - name: Merge posts that have waited long enough
+        run: |
+          cutoff="$(date -u -d "-${DELAY_DAYS} days" +%s)"
+          gh pr list --repo "$REPO" --base "$BASE" --state open --limit 50 \
+            --json number,headRefName,headRepositoryOwner,createdAt,headRefOid \
+            --jq '.[] | select(.headRefName | startswith("blog/weekly-")) | [.number, .headRepositoryOwner.login, .createdAt, .headRefOid] | @tsv' |
+          while IFS=$'\t' read -r number owner created sha; do
+            if [ "$owner" != "${REPO%%/*}" ]; then echo "#$number: head is not in this repository, skipped"; continue; fi
+            if [ "$(date -u -d "$created" +%s)" -gt "$cutoff" ]; then echo "#$number: still inside the ${DELAY_DAYS}-day review window"; continue; fi
+            bad="$(gh api --paginate "repos/$REPO/pulls/$number/files" --jq '.[] | select((.filename | test("^_posts/[^/]+\\.md$") | not) or (.status != "added" and .status != "modified")) | .filename')"
+            if [ -n "$bad" ]; then echo "#$number: touches more than posts, left for review:"; echo "$bad"; continue; fi
+            gh pr merge "$number" --repo "$REPO" --squash --delete-branch --match-head-commit "$sha"
+          done
