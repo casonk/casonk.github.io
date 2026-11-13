@@ -18,19 +18,23 @@ MODEL_REQUESTED="${WEEKLY_BLOG_AGENTIC_MODEL:-}"
 PUSH_ENABLED="${WEEKLY_BLOG_AGENTIC_PUSH:-1}"
 KEEP_WORKTREE="${WEEKLY_BLOG_AGENTIC_KEEP_WORKTREE:-0}"
 BRANCH_REQUESTED="${WEEKLY_BLOG_AGENTIC_BRANCH:-}"
+DIRECT_PUSH="${WEEKLY_BLOG_AGENTIC_DIRECT:-0}"
 
 usage() {
   cat <<EOF
 Usage: weekly_blog_agentic.sh [options]
 
 Create a weekly Codex-authored blog post from a temporary clean worktree,
-validate the result, and optionally push it to the tracked remote branch.
+validate the result, and optionally push it. By default the post goes to a
+`blog/weekly-<date>` branch for review, because the default branch requires a
+pull request; use --direct only where direct pushes are allowed.
 
 Options:
   --branch NAME          Override the target branch. Default: origin HEAD branch.
   --log-dir DIR          Override the run-log directory.
   --model MODEL          Override the Codex model used for authoring.
   --prompt-file PATH     Override the tracked prompt file.
+  --direct               Push to the target branch itself instead of a blog/weekly-<date> branch.
   --no-push              Commit locally in the temporary worktree but skip git push.
   --keep-worktree        Keep the temporary worktree after success.
   --help                 Show this help text.
@@ -40,6 +44,7 @@ Environment overrides:
   WEEKLY_BLOG_AGENTIC_MODEL
   WEEKLY_BLOG_AGENTIC_PROMPT_FILE
   WEEKLY_BLOG_AGENTIC_PUSH   (1 or 0)
+  WEEKLY_BLOG_AGENTIC_DIRECT (1 or 0)
   WEEKLY_BLOG_AGENTIC_KEEP_WORKTREE (1 or 0)
   LOG_DIR
   TRACTION_CONTROL_REPO
@@ -115,6 +120,10 @@ while [[ $# -gt 0 ]]; do
     --prompt-file)
       PROMPT_FILE="$2"
       shift 2
+      ;;
+    --direct)
+      DIRECT_PUSH=1
+      shift
       ;;
     --no-push)
       PUSH_ENABLED=0
@@ -295,8 +304,16 @@ log "git commit      : ${COMMIT_MESSAGE}"
 git -C "${WORKTREE_DIR}" commit -m "${COMMIT_MESSAGE}" | tee -a "${LOG_FILE}"
 
 if (( PUSH_ENABLED == 1 )); then
-  log "git push        : origin HEAD:${BRANCH}"
-  git -C "${WORKTREE_DIR}" push origin "HEAD:${BRANCH}" | tee -a "${LOG_FILE}"
+  if (( DIRECT_PUSH == 1 )); then
+    PUSH_REF="${BRANCH}"
+  else
+    PUSH_REF="blog/weekly-${TODAY}"
+  fi
+  log "git push        : origin HEAD:${PUSH_REF}"
+  git -C "${WORKTREE_DIR}" push origin "HEAD:refs/heads/${PUSH_REF}" | tee -a "${LOG_FILE}"
+  if (( DIRECT_PUSH != 1 )); then
+    log "review          : open a pull request from ${PUSH_REF} into ${BRANCH}"
+  fi
 else
   log "git push        : skipped by configuration"
   log "worktree kept   : ${WORKTREE_DIR}"
