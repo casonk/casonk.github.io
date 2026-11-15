@@ -3,7 +3,8 @@
 
 [repository]
 # One line shown on GitHub. Keep it free of private repository names and local paths.
-description = "Github Pages template for academic personal websites, forked from academicpages/academicpages  from mmistakes/minimal-mistakes"
+description = "Personal portfolio and blog, built with Jekyll and published on GitHub Pages."
+topics = ["jekyll", "github-pages", "personal-website", "portfolio", "blog"]
 
 [main_branch]
 # Direct commits and pushes to main are refused unless this is true.
