@@ -21,3 +21,11 @@ Unlike `CHATHISTORY.md`, this file should keep only reusable lessons that should
 - In this repo, `pre-commit run --all-files` currently normalizes whitespace and EOF markers across many untouched legacy scaffold files; use file-scoped hooks for targeted site edits during iteration, but expect a broader formatting sweep before any push that relies on all-files validation.
 - Scheduled repo-writing agents should run from temporary clean git worktrees rather than the maintainer's live checkout, so unattended publishing does not depend on whether the day-to-day workspace is dirty.
 - The systemd service PATH must include `%h/bin` (i.e., `~/bin`) for `bundle exec jekyll` to resolve. Jekyll is installed as a user gem at `~/bin/jekyll`; without `~/bin` in PATH the service exits 127 even though `bundle exec -- which jekyll` resolves correctly in an interactive shell.
+
+### 2026-11-15 — Writing a post that summarises other repositories
+
+- When asked to add to "the latest post", check what it is. The newest post was an unrelated automation note, so a
+  topical piece was published as a new post instead of bolted onto it.
+- Public posts name public repositories only, and carry no hostnames, addresses, tokens or personal details; grep the
+  draft for them before the pull request.
+- Check every claim against the repositories' own history before publishing, and soften anything subjective.
